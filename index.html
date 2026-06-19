@@ -216,6 +216,32 @@ footer{border-top:1px solid rgba(167,139,250,0.1);padding:2rem 6%;display:flex;j
 
 #particle-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.4}
 
+/* SCROLL PROGRESS BAR */
+#scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--violet),var(--magenta),var(--pink));z-index:9997;width:0%;transition:width 0.1s linear;box-shadow:0 0 12px rgba(192,38,211,0.6)}
+
+/* SKILL BARS (animated draw-in) */
+.skill-bar-wrap{margin-top:0.9rem}
+.skill-bar-row{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.55rem}
+.skill-bar-label{font-family:var(--mono);font-size:0.68rem;color:var(--muted);width:88px;flex-shrink:0}
+.skill-bar-track{flex:1;height:5px;background:rgba(167,139,250,0.12);border-radius:3px;overflow:hidden;position:relative}
+.skill-bar-fill{height:100%;width:0%;border-radius:3px;background:linear-gradient(90deg,var(--violet),var(--pink));transition:width 1.4s cubic-bezier(0.16,1,0.3,1)}
+.skill-bar-fill.filled{width:var(--pct)}
+
+/* STORY SCROLL HERO TEXT */
+.story-line{display:block;opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.story-line.in{opacity:1;transform:none}
+
+/* PHOTO PARALLAX DEPTH */
+.hero-photo-col{will-change:transform}
+.photo-wrap{will-change:transform}
+
+/* SMOOTH SECTION FADE-SCALE-IN (upgrade on .rv) */
+.rv{transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.rv:not(.in){transform:translateY(50px) scale(0.97)}
+
+/* MAGNETIC BUTTON PULL (desktop) */
+.btn-main,.btn-ghost{will-change:transform}
+
 /* ============ RESPONSIVE ============ */
 @media(max-width:1024px){
   .hero-photo-col{max-width:420px;min-height:440px}
@@ -250,10 +276,13 @@ footer{border-top:1px solid rgba(167,139,250,0.1);padding:2rem 6%;display:flex;j
   .skills-grid{grid-template-columns:1fr}
   .hero-cta{flex-direction:column;width:100%}
   .btn-main,.btn-ghost{justify-content:center;width:100%}
+  .skill-bar-label{width:72px;font-size:0.62rem}
 }
 </style>
 </head>
 <body>
+
+<div id="scroll-progress"></div>
 
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
@@ -299,7 +328,11 @@ footer{border-top:1px solid rgba(167,139,250,0.1);padding:2rem 6%;display:flex;j
       <span class="name-word">Balaji</span>
     </h1>
     <div class="hero-type-line"><span id="typed"></span></div>
-    <p class="hero-desc">MSc Cybersecurity student and full-stack developer from Mumbai. I build real products, from fintech platforms to property apps, with clean code and bold ideas.</p>
+    <p class="hero-desc">
+      <span class="story-line" id="sl1">MSc Cybersecurity student and full-stack developer from Mumbai.</span>
+      <span class="story-line" id="sl2">I build real products, from fintech platforms to property apps.</span>
+      <span class="story-line" id="sl3">Clean code, bold ideas, shipped fast.</span>
+    </p>
     <div class="hero-cta">
       <a href="#projects" class="btn-main"><span>View My Work</span></a>
       <a href="mailto:balajimaninadar4712@gmail.com" class="btn-ghost">Let's Talk</a>
@@ -363,29 +396,33 @@ footer{border-top:1px solid rgba(167,139,250,0.1);padding:2rem 6%;display:flex;j
   <div class="section-tag">What I Know</div>
   <h2>Skills & <em>Stack</em></h2>
   <div class="skills-grid">
-    <div class="skill-card rv">
+    <div class="skill-card rv" data-bars='[["React.js",90],["JavaScript",85],["Tailwind CSS",88],["HTML/CSS",92]]'>
       <div class="skill-title">Frontend</div>
       <div class="skill-tags">
         <span class="stag">React.js</span><span class="stag">Tailwind CSS</span><span class="stag">JavaScript</span><span class="stag">HTML5</span><span class="stag">CSS3</span><span class="stag">Framer Motion</span><span class="stag">Bootstrap</span>
       </div>
+      <div class="skill-bar-wrap"></div>
     </div>
-    <div class="skill-card rv">
+    <div class="skill-card rv" data-bars='[["Firebase",85],["Node.js",75],["MongoDB",78]]'>
       <div class="skill-title">Backend & Cloud</div>
       <div class="skill-tags">
         <span class="stag">Node.js</span><span class="stag">Firebase Auth</span><span class="stag">Firestore</span><span class="stag">MongoDB</span><span class="stag">REST APIs</span>
       </div>
+      <div class="skill-bar-wrap"></div>
     </div>
-    <div class="skill-card rv">
+    <div class="skill-card rv" data-bars='[["Git/GitHub",88],["VS Code",95],["Deployment",80]]'>
       <div class="skill-title">Tools & DevOps</div>
       <div class="skill-tags">
         <span class="stag">Git</span><span class="stag">GitHub</span><span class="stag">VS Code</span><span class="stag">Vercel</span><span class="stag">GitHub Pages</span>
       </div>
+      <div class="skill-bar-wrap"></div>
     </div>
-    <div class="skill-card rv">
+    <div class="skill-card rv" data-bars='[["Cybersecurity",60],["Python",55]]'>
       <div class="skill-title">Currently Learning</div>
       <div class="skill-tags">
         <span class="stag">Cybersecurity</span><span class="stag">Ethical Hacking</span><span class="stag">Network Security</span><span class="stag">Python</span>
       </div>
+      <div class="skill-bar-wrap"></div>
     </div>
   </div>
 </section>
@@ -703,6 +740,102 @@ window.cbSend=function(){
 
 document.getElementById('cb-input').addEventListener('keydown',e=>{if(e.key==='Enter')cbSend()});
 })();
+</script>
+
+<script>
+// SCROLL PROGRESS BAR
+const progressBar=document.getElementById('scroll-progress');
+function updateProgress(){
+  const h=document.documentElement;
+  const scrolled=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+  progressBar.style.width=scrolled+'%';
+}
+window.addEventListener('scroll',updateProgress);
+updateProgress();
+
+// PARALLAX HERO PHOTO
+const heroPhotoCol=document.querySelector('.hero-photo-col');
+const photoWrap=document.querySelector('.photo-wrap');
+if(heroPhotoCol&&window.matchMedia('(min-width:900px)').matches){
+  window.addEventListener('scroll',()=>{
+    const sc=window.scrollY;
+    if(sc<window.innerHeight){
+      heroPhotoCol.style.transform=`translateY(${sc*0.25}px)`;
+      if(photoWrap)photoWrap.style.transform=`translateY(${sc*-0.1}px)`;
+    }
+  });
+}
+
+// STORY LINES reveal in sequence
+const storyLines=[document.getElementById('sl1'),document.getElementById('sl2'),document.getElementById('sl3')];
+storyLines.forEach((el,i)=>{if(el)setTimeout(()=>el.classList.add('in'),900+i*350)});
+
+// COUNT-UP STATS
+function countUp(el,target,suffix,duration){
+  const isNum=!isNaN(parseFloat(target));
+  if(!isNum){el.textContent=target;return}
+  const start=0;const startTime=performance.now();
+  function step(now){
+    const progress=Math.min((now-startTime)/duration,1);
+    const eased=1-Math.pow(1-progress,3);
+    const val=Math.floor(start+(target-start)*eased);
+    el.textContent=val+(suffix||'');
+    if(progress<1)requestAnimationFrame(step);
+    else el.textContent=target+(suffix||'');
+  }
+  requestAnimationFrame(step);
+}
+const statObs=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el=entry.target;
+      if(el.dataset.counted)return;
+      el.dataset.counted='1';
+      const raw=el.textContent.trim();
+      const num=parseInt(raw.replace(/[^0-9]/g,''));
+      const suffix=raw.replace(/[0-9]/g,'');
+      if(!isNaN(num))countUp(el,num,suffix,1400);
+      statObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.stat-num').forEach(el=>statObs.observe(el));
+
+// SKILL BARS - build and animate
+document.querySelectorAll('.skill-card[data-bars]').forEach(card=>{
+  const bars=JSON.parse(card.dataset.bars);
+  const wrap=card.querySelector('.skill-bar-wrap');
+  bars.forEach(([label,pct])=>{
+    const row=document.createElement('div');
+    row.className='skill-bar-row';
+    row.innerHTML=`<span class="skill-bar-label">${label}</span><div class="skill-bar-track"><div class="skill-bar-fill" style="--pct:${pct}%"></div></div>`;
+    wrap.appendChild(row);
+  });
+});
+const skillObs=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.querySelectorAll('.skill-bar-fill').forEach((fill,i)=>{
+        setTimeout(()=>fill.classList.add('filled'),i*150);
+      });
+      skillObs.unobserve(entry.target);
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.skill-card[data-bars]').forEach(el=>skillObs.observe(el));
+
+// MAGNETIC BUTTONS (desktop)
+if(window.matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.btn-main,.btn-ghost').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*0.25;
+      const y=(e.clientY-r.top-r.height/2)*0.25;
+      btn.style.transform=`translate(${x}px,${y}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+  });
+}
 </script>
 
 </body>
