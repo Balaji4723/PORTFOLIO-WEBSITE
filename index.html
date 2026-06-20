@@ -174,6 +174,20 @@ h2 em{background:linear-gradient(135deg,var(--lavender2),var(--pink));-webkit-ba
 .proj-banner-glow{position:absolute;width:200px;height:200px;border-radius:50%;filter:blur(50px);animation:glowPulse2 3s ease-in-out infinite}
 .glow-purple{background:rgba(124,58,237,0.3)}
 .glow-blue{background:rgba(37,99,235,0.25)}
+
+/* GRADIENT ICON BADGES */
+.icon-badge{
+  position:relative;z-index:1;
+  width:84px;height:84px;
+  border-radius:22px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 12px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  animation:badgeFloat 3.5s ease-in-out infinite;
+}
+.icon-badge svg{width:42px;height:42px;display:block}
+.icon-badge.fs-badge{background:linear-gradient(135deg,#7C3AED 0%,#C026D3 55%,#F59E0B 100%)}
+.icon-badge.re-badge{background:linear-gradient(135deg,#2563EB 0%,#7C3AED 55%,#06B6D4 100%)}
+@keyframes badgeFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
 @keyframes glowPulse2{0%,100%{opacity:0.6;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
 .proj-live-badge{position:absolute;top:12px;right:12px;z-index:2;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;padding:4px 10px;border-radius:20px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);color:#34D399;display:flex;align-items:center;gap:4px}
 .live-dot{width:5px;height:5px;border-radius:50%;background:#10B981;animation:livePulse 2s ease-in-out infinite}
@@ -396,21 +410,21 @@ footer{border-top:1px solid rgba(167,139,250,0.1);padding:2rem 6%;display:flex;j
   <div class="section-tag">What I Know</div>
   <h2>Skills & <em>Stack</em></h2>
   <div class="skills-grid">
-    <div class="skill-card rv" data-bars='[["React.js",50],["JavaScript",55],["Tailwind CSS",58],["HTML/CSS",92]]'>
+    <div class="skill-card rv" data-bars='[["React.js",30],["JavaScript",35],["Tailwind CSS",28],["HTML/CSS",92]]'>
       <div class="skill-title">Frontend</div>
       <div class="skill-tags">
         <span class="stag">React.js</span><span class="stag">Tailwind CSS</span><span class="stag">JavaScript</span><span class="stag">HTML5</span><span class="stag">CSS3</span><span class="stag">Framer Motion</span><span class="stag">Bootstrap</span>
       </div>
       <div class="skill-bar-wrap"></div>
     </div>
-    <div class="skill-card rv" data-bars='[["Firebase",35],["Node.js",25],["MongoDB",48]]'>
+    <div class="skill-card rv" data-bars='[["Firebase",15],["Node.js",25],["MongoDB",18]]'>
       <div class="skill-title">Backend & Cloud</div>
       <div class="skill-tags">
         <span class="stag">Node.js</span><span class="stag">Firebase Auth</span><span class="stag">Firestore</span><span class="stag">MongoDB</span><span class="stag">REST APIs</span>
       </div>
       <div class="skill-bar-wrap"></div>
     </div>
-    <div class="skill-card rv" data-bars='[["Git/GitHub",88],["VS Code",95],["Deployment",80]]'>
+    <div class="skill-card rv" data-bars='[["Git/GitHub",78],["VS Code",85],["Deployment",80]]'>
       <div class="skill-title">Tools & DevOps</div>
       <div class="skill-tags">
         <span class="stag">Git</span><span class="stag">GitHub</span><span class="stag">VS Code</span><span class="stag">Vercel</span><span class="stag">GitHub Pages</span>
@@ -434,7 +448,14 @@ footer{border-top:1px solid rgba(167,139,250,0.1);padding:2rem 6%;display:flex;j
     <div class="project-card rv">
       <div class="proj-banner fintech">
         <div class="proj-banner-glow glow-purple"></div>
-        <span class="proj-icon-mark">💵</span>
+        <div class="icon-badge fs-badge">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 17L9 11L13 15L21 7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 7H21V13" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9" cy="11" r="1.4" fill="white"/>
+            <circle cx="13" cy="15" r="1.4" fill="white"/>
+          </svg>
+        </div>
         <span class="proj-live-badge"><span class="live-dot"></span>LIVE</span>
       </div>
       <div class="proj-body">
@@ -454,7 +475,13 @@ footer{border-top:1px solid rgba(167,139,250,0.1);padding:2rem 6%;display:flex;j
     <div class="project-card rv">
       <div class="proj-banner realestate">
         <div class="proj-banner-glow glow-blue"></div>
-        <span class="proj-icon-mark">🏠</span>
+        <div class="icon-badge re-badge">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 11L12 3L21 11" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 10V20H19V10" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 20V14H14V20" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <span class="proj-live-badge"><span class="live-dot"></span>LIVE</span>
       </div>
       <div class="proj-body">
@@ -465,7 +492,7 @@ footer{border-top:1px solid rgba(167,139,250,0.1);padding:2rem 6%;display:flex;j
           <span class="tpill">HTML/CSS/JS</span><span class="tpill">Node.js</span><span class="tpill">MongoDB</span><span class="tpill">GitHub Pages</span>
         </div>
         <div class="proj-links">
-          <a href="https://real-estate-frontend-jqb8.onrender.com/" target="_blank" rel="noopener" class="plink primary">Live Demo</a>
+          <a href="https://balaji4723.github.io/real-estate-platform/" target="_blank" rel="noopener" class="plink primary">Live Demo</a>
           <a href="https://github.com/Balaji4723/real-estate-platform" target="_blank" rel="noopener" class="plink secondary">GitHub</a>
         </div>
       </div>
